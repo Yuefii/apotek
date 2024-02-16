@@ -24,12 +24,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     })
     // console.log(updatedObat);
 
-    res.json(updatedObat)
+    res.json({
+      updated: updatedObat
+    })
   } else if (req.method === 'DELETE') {
-    const deletedObat = await prisma.obat.delete({
+    await prisma.obat.delete({
       where: { kode_obat: kode_obat },
     })
-    res.json(deletedObat)
+    res.json("obat telah berhasil dihapus")
   } else {
     res.status(405).json({ message: 'Method Not Allowed' })
   }

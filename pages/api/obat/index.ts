@@ -28,7 +28,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.json(newObat)
     } else if (req.method === 'GET') {
         const allObat = await prisma.obat.findMany()
-        res.json(allObat)
+        res.json({
+            data: allObat
+        })
     } else {
         res.status(405).json({ message: 'Method Not Allowed' })
     }
