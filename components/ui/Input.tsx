@@ -1,19 +1,25 @@
+import { ChangeEvent } from "react";
+
 interface InputProps {
   label?: string;
   name: string;
+  value: string;
   type: string;
   placeholder?: string;
   defaultValue?: string;
   disabled?: boolean;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 const Input: React.FC<InputProps> = ({
   label,
   name,
   type,
+  onChange,
   placeholder,
   defaultValue,
   disabled,
+  value,
 }) => {
   return (
     <>
@@ -27,9 +33,11 @@ const Input: React.FC<InputProps> = ({
         <input
           type={type}
           name={name}
+          onChange={onChange}
           id={name}
           placeholder={placeholder}
           defaultValue={defaultValue}
+          value={value}
           disabled={disabled}
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
         />

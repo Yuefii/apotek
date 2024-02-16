@@ -1,4 +1,3 @@
-// pages/api/auth.js
 import bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
