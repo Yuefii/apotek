@@ -1,8 +1,28 @@
 import Layout from "@/components/dasboard/Layout";
 import TabelDataObat from "@/components/dasboard/TableDataObat";
+import { useEffect, useState } from "react";
 import { FaFolder } from "react-icons/fa";
 
 const DataObat = () => {
+  const [dataObat, setDataObat] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/obat");
+        if (!res.ok) {
+          throw new Error("Gagal mengambil data obat");
+        }
+        const result = await res.json();
+        setDataObat(result.data);
+      } catch (error) {
+        console.error("Terjadi kesalahan:", error);
+        setDataObat([]);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <Layout>
       <div className="ml-64">
@@ -20,7 +40,7 @@ const DataObat = () => {
             </button>
           </div>
           <div className="container mx-auto">
-            <TabelDataObat />
+            <TabelDataObat dataObat={dataObat} />
           </div>
         </div>
       </div>
