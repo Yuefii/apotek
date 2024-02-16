@@ -1,13 +1,12 @@
-import React from "react";
 import Layout from "@/components/dasboard/Layout";
 
-const Admin = () => {
+const DashboardPages = () => {
   return (
     <>
       <Layout>
         <div className="ml-64">
           <div className="bg-gray-400 h-12 font-semibold text-2xl">
-
+            {/* KONTEN */}
           </div>
         </div>
       </Layout>
@@ -15,4 +14,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default DashboardPages;
