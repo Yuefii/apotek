@@ -11,8 +11,8 @@ datasource db {
 }
 
 model Obat {
-  kode_obat   Int    @id @unique
-  name_obat   String
+  kode_obat   String    @id @unique
+  nama_obat   String
   harga_obat  Int
   satuan_obat String
 }
