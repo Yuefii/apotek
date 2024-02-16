@@ -16,7 +16,7 @@ const DataTransaksi = () => {
               <FaFolder />
               <h1 className="font-semibold">Data Transaksi</h1>
               </div>
-              <button className="bg-gray-800 text-white font-semibold px-2 py-1 text-xs rounded mb-2">Tambah</button>
+              <button className="bg-blue-600 text-white font-semibold px-2 py-1 text-xs rounded mb-2">Tambah</button>
             </div>
             <div className="container mx-auto">
               <TabelDataTransaksi />
