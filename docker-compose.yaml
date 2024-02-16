@@ -1,0 +1,26 @@
+version: '3'
+services: 
+  mysql:
+    image: 'mysql:latest'
+    container_name: apotek
+    ports: 
+      - '3306:3306'
+    environment: 
+      MYSQL_ROOT_PASSWORD: docker_mysql
+      MYSQL_DATABASE: docker_mysql
+      MYSQL_USER: docker_mysql
+      MYSQL_PASSWORD: docker_mysql
+    networks: 
+      - 'database-net'
+    volumes: 
+      - ./data:/var/lib/mysql
+  
+  adminer:
+    image: 'adminer'
+    ports: 
+      - '8081:8080'
+    networks: 
+      - 'database-net'
+
+networks:
+  database-net:
