@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             data: {
                 kode_obat,
                 nama_obat,
-                harga_obat,
+                harga_obat: parseInt(harga_obat),
                 satuan_obat,
             },
         })

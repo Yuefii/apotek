@@ -1,15 +1,25 @@
 import Layout from "@/components/dasboard/Layout";
 import TabelDataObat from "@/components/dasboard/TableDataObat";
+import ModalTambah from "@/components/modals/data-obat/ModalTambah";
 import withAuth from "@/utils/withAuth";
 import { useEffect, useState } from "react";
 import { FaFolder } from "react-icons/fa";
 
 const DataObat = () => {
   const [dataObat, setDataObat] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleTambahOpen = () => {
+    setShowModal(true);
+  };
+
+  const handleTambahClose = () => {
+    setShowModal(false);
+  };
 
   const fetchData = async () => {
     try {
@@ -74,9 +84,7 @@ const DataObat = () => {
             </div>
             <button
               className="bg-blue-600 hover:opacity-90 text-white font-semibold px-2 py-1 text-xs rounded mb-2"
-              onClick={() => {
-                // Logika untuk menambah obat baru
-              }}
+              onClick={handleTambahOpen}
             >
               Tambah
             </button>
@@ -90,6 +98,12 @@ const DataObat = () => {
           </div>
         </div>
       </div>
+      {showModal && (
+        <ModalTambah
+          fetchData={fetchData}
+          handleTambahClose={handleTambahClose}
+        />
+      )}
     </Layout>
   );
 };
