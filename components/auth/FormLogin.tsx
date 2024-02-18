@@ -7,7 +7,6 @@ const FormLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState(null);
   const [error, setError] = useState(null);
   const router = useRouter();
 
@@ -26,7 +25,7 @@ const FormLogin = () => {
       if (!response.ok) {
         throw new Error(data.error || "Login failed");
       }
-      setToken(data.token);
+      document.cookie = `token=${data.token}; path=/;`;
       router.push("/");
     } catch (error: any) {
       setError(error.message || "");

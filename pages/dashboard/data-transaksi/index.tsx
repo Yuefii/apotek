@@ -1,5 +1,6 @@
 import Layout from "@/components/dasboard/Layout";
 import TabelDataTransaksi from "@/components/dasboard/TableDataTransaksi";
+import withAuth from "@/utils/withAuth";
 import { FaFolder } from "react-icons/fa";
 
 const DataTransaksi = () => {
@@ -28,4 +29,4 @@ const DataTransaksi = () => {
   );
 };
 
-export default DataTransaksi;
+export default withAuth(DataTransaksi);

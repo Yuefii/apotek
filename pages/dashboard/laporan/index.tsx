@@ -1,4 +1,5 @@
 import Layout from "@/components/dasboard/Layout";
+import withAuth from "@/utils/withAuth";
 
 const Admin = () => {
   return (
@@ -14,4 +15,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default withAuth(Admin);

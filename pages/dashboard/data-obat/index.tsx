@@ -1,5 +1,6 @@
 import Layout from "@/components/dasboard/Layout";
 import TabelDataObat from "@/components/dasboard/TableDataObat";
+import withAuth from "@/utils/withAuth";
 import { useEffect, useState } from "react";
 import { FaFolder } from "react-icons/fa";
 
@@ -48,4 +49,4 @@ const DataObat = () => {
   );
 };
 
-export default DataObat;
+export default withAuth(DataObat);

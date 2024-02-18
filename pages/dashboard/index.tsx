@@ -1,4 +1,5 @@
 import Layout from "@/components/dasboard/Layout";
+import withAuth from "@/utils/withAuth";
 
 const DashboardPages = () => {
   return (
@@ -14,4 +15,4 @@ const DashboardPages = () => {
   );
 };
 
-export default DashboardPages;
+export default withAuth(DashboardPages);
