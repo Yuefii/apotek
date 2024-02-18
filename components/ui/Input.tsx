@@ -2,13 +2,13 @@ import { ChangeEvent } from "react";
 
 interface InputProps {
   label?: string;
-  name: string;
-  value: string;
+  name?: string;
+  value: string | number;
   type: string;
   placeholder?: string;
   defaultValue?: string;
   disabled?: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({

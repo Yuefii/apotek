@@ -17,13 +17,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(404).json({ message: 'Obat tidak ditemukan' })
     }
   } else if (req.method === 'PATCH') {
-    const { ...data } = req.body
+    const { harga_obat, ...data } = req.body
     const updatedObat = await prisma.obat.update({
       where: { kode_obat: kode_obat },
-      data: data,
+      data: {
+        ...data,
+        harga_obat: parseInt(harga_obat)
+      },
     })
-    // console.log(updatedObat);
-
     res.json({
       updated: updatedObat
     })

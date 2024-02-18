@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
+import ModalUpdate from "../modals/data-obat/ModalUpdate";
+import ModalDelete from "../modals/data-obat/ModalDelete";
 
 interface DataObat {
   kode_obat: string;
@@ -10,9 +13,64 @@ interface DataObat {
 
 interface DataObatProps {
   dataObat: DataObat[];
+  onUpdateObat: (kodeObat: string, updatedData: Partial<DataObat>) => void;
+  onDeleteObat: (kodeObat: string) => void;
 }
 
-const TabelDataObat: React.FC<DataObatProps> = ({ dataObat }) => {
+const TabelDataObat: React.FC<DataObatProps> = ({
+  dataObat,
+  onUpdateObat,
+  onDeleteObat,
+}) => {
+  const [editingObat, setEditingObat] = useState<DataObat | null>(null);
+  const [deleteObat, setDeleteObat] = useState<DataObat | null>(null);
+
+  const handleEditClick = (obat: DataObat) => {
+    setEditingObat(obat);
+  };
+
+  const handleSaveEdit = () => {
+    if (editingObat) {
+      onUpdateObat(editingObat.kode_obat, editingObat);
+      setEditingObat(null);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingObat(null);
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    key: keyof DataObat
+  ) => {
+    if (editingObat) {
+      let value: string | number = e.target.value;
+      if (key === "harga_obat") {
+        value = parseInt(value);
+      }
+      setEditingObat({
+        ...editingObat,
+        [key]: value,
+      });
+    }
+  };
+
+  const handleDeleteClick = (obat: DataObat) => {
+    setDeleteObat(obat);
+  };
+
+  const handleConfirmDelete = () => {
+    if (deleteObat) {
+      onDeleteObat(deleteObat.kode_obat);
+      setDeleteObat(null);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteObat(null);
+  };
+
   return (
     <>
       <div className="relative overflow-x-auto shadow-md">
@@ -42,10 +100,16 @@ const TabelDataObat: React.FC<DataObatProps> = ({ dataObat }) => {
                 <td className="py-3 border-r">{item.stok}</td>
                 <td className="py-3 border-r">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="bg-blue-600 p-1.5 rounded text-white cursor-pointer hover:opacity-90">
+                    <span
+                      className="bg-blue-600 p-1.5 rounded text-white cursor-pointer hover:opacity-90"
+                      onClick={() => handleEditClick(item)}
+                    >
                       <MdEdit size={15} />
                     </span>
-                    <span className="bg-red-600 p-1.5 rounded text-white cursor-pointer hover:opacity-90">
+                    <span
+                      onClick={() => handleDeleteClick(item)}
+                      className="bg-red-600 p-1.5 rounded text-white cursor-pointer hover:opacity-90"
+                    >
                       <MdDelete size={15} />
                     </span>
                   </div>
@@ -55,6 +119,22 @@ const TabelDataObat: React.FC<DataObatProps> = ({ dataObat }) => {
           </tbody>
         </table>
       </div>
+
+      {editingObat && (
+        <ModalUpdate
+          handleCancelEdit={handleCancelEdit}
+          handleSaveEdit={handleSaveEdit}
+          handleInputChange={handleInputChange}
+          editingObat={editingObat}
+        />
+      )}
+
+      {deleteObat && (
+        <ModalDelete
+          handleConfirmDelete={handleConfirmDelete}
+          handleCancelDelete={handleCancelDelete}
+        />
+      )}
     </>
   );
 };

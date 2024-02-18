@@ -8,21 +8,57 @@ const DataObat = () => {
   const [dataObat, setDataObat] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("/api/obat");
-        if (!res.ok) {
-          throw new Error("Gagal mengambil data obat");
-        }
-        const result = await res.json();
-        setDataObat(result.data);
-      } catch (error) {
-        console.error("Terjadi kesalahan:", error);
-        setDataObat([]);
-      }
-    };
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch("/api/obat");
+      if (!res.ok) {
+        throw new Error("Gagal mengambil data obat");
+      }
+      const result = await res.json();
+      setDataObat(result.data);
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+      setDataObat([]);
+    }
+  };
+
+  const handleUpdateObat = async (kodeObat: string, updatedData: any) => {
+    try {
+      const res = await fetch(`/api/obat/${kodeObat}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      });
+      if (!res.ok) {
+        throw new Error("Gagal memperbarui data obat");
+      }
+      fetchData();
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+    }
+  };
+
+  const handleDeleteObat = async (kodeObat: string) => {
+    try {
+      const res = await fetch(`/api/obat/${kodeObat}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) {
+        throw new Error("Gagal memperbarui data obat");
+      }
+      fetchData();
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+    }
+  };
 
   return (
     <Layout>
@@ -36,12 +72,21 @@ const DataObat = () => {
               <FaFolder />
               <h1 className="font-semibold">Data Obat</h1>
             </div>
-            <button className="bg-blue-600 hover:opacity-90 text-white font-semibold px-2 py-1 text-xs rounded mb-2">
+            <button
+              className="bg-blue-600 hover:opacity-90 text-white font-semibold px-2 py-1 text-xs rounded mb-2"
+              onClick={() => {
+                // Logika untuk menambah obat baru
+              }}
+            >
               Tambah
             </button>
           </div>
           <div className="container mx-auto">
-            <TabelDataObat dataObat={dataObat} />
+            <TabelDataObat
+              dataObat={dataObat}
+              onUpdateObat={handleUpdateObat}
+              onDeleteObat={handleDeleteObat}
+            />
           </div>
         </div>
       </div>
