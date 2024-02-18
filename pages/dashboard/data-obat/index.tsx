@@ -3,7 +3,7 @@ import TabelDataObat from "@/components/dasboard/TableDataObat";
 import ModalTambah from "@/components/modals/data-obat/ModalTambah";
 import withAuth from "@/utils/withAuth";
 import { useEffect, useState } from "react";
-import { FaFolder } from "react-icons/fa";
+import { FaRegFolder } from "react-icons/fa";
 
 const DataObat = () => {
   const [dataObat, setDataObat] = useState([]);
@@ -79,7 +79,7 @@ const DataObat = () => {
         <div className="mx-10 mt-5">
           <div className="flex justify-between items-center">
             <div className="flex gap-1 items-center">
-              <FaFolder />
+              <FaRegFolder />
               <h1 className="font-semibold">Data Obat</h1>
             </div>
             <button

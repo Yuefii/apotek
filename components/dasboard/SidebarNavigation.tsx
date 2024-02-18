@@ -1,12 +1,20 @@
 import Link from "next/link";
 import { SidebarList } from "@/helper/sidebar/navigation";
+import { useRouter } from "next/router";
+import { MdLogout } from "react-icons/md";
 
 const SidebarNavigation = ({ isLinkActive }: any) => {
+  const router = useRouter();
+  const logout = () => {
+    localStorage.removeItem("token");
+    router.push("/auth/login");
+  };
+
   return (
     <>
-      {SidebarList.map((item, index) => (
-        <ul key={index}>
-          <li className="mb-1">
+      <ul>
+        {SidebarList.map((item, index) => (
+          <li key={index} className="mb-1">
             <Link
               href={item.link}
               className={`${isLinkActive(
@@ -17,8 +25,15 @@ const SidebarNavigation = ({ isLinkActive }: any) => {
               <span className="text-sm">{item.title}</span>
             </Link>
           </li>
-        </ul>
-      ))}
+        ))}
+        <li
+          onClick={logout}
+          className="w-full flex gap-3 items-center py-2 px-4 font-semibold hover:bg-slate-600 hover:text-white"
+        >
+          <MdLogout />
+          <span className="text-sm">Keluar</span>
+        </li>
+      </ul>
     </>
   );
 };

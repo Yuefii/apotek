@@ -1,7 +1,5 @@
 export const checkAuthentication = () => {
-    const cookies = document.cookie.split('; ');
-    const tokenCookie = cookies.find(cookie => cookie.startsWith('token='));
-    const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+    const token = localStorage.getItem('token');
 
     if (token) {
         return true;

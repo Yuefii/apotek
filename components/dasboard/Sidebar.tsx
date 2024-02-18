@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import SidebarNavigation from "./SidebarNavigation";
 import Button from "../ui/Button";
+import { MdDashboardCustomize } from "react-icons/md";
 
 const Sidebar = () => {
   const { pathname } = useRouter();
@@ -16,8 +17,9 @@ const Sidebar = () => {
   return (
     <>
       <div className="fixed left-0 top-0 w-64 h-full bg-gray-200 border-r-2 z-50">
-        <Link href="/dashboard" className="flex items-center h-12 bg-gray-400">
-          <span className="text-lg font-bold ml-3">Dashboard</span>
+        <Link href="/dashboard" className="pl-4 flex gap-2 items-center h-12 bg-gray-400">
+          <MdDashboardCustomize />
+          <span className="text-lg font-bold">Dashboard</span>
         </Link>
         <SidebarNavigation isLinkActive={isLinkActive} />
       </div>

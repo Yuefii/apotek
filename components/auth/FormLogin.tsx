@@ -25,7 +25,7 @@ const FormLogin = () => {
       if (!response.ok) {
         throw new Error(data.error || "Login failed");
       }
-      document.cookie = `token=${data.token}; path=/;`;
+      localStorage.setItem('token', data.token);
       router.push("/");
     } catch (error: any) {
       setError(error.message || "");
