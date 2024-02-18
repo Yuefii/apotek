@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import ModalUpdate from "../modals/data-obat/ModalUpdate";
 import ModalDelete from "../modals/data-obat/ModalDelete";
+import Pagination from "./Pagination";
 
 interface DataObat {
   kode_obat: string;
@@ -24,6 +25,8 @@ const TabelDataObat: React.FC<DataObatProps> = ({
 }) => {
   const [editingObat, setEditingObat] = useState<DataObat | null>(null);
   const [deleteObat, setDeleteObat] = useState<DataObat | null>(null);
+  const [activePage, setActivePage] = useState<number>(1);
+  const itemsPerPage = 10;
 
   const handleEditClick = (obat: DataObat) => {
     setEditingObat(obat);
@@ -71,6 +74,11 @@ const TabelDataObat: React.FC<DataObatProps> = ({
     setDeleteObat(null);
   };
 
+  const startIndex = (activePage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const currentData = dataObat.slice(startIndex, endIndex);
+
   return (
     <>
       <div className="relative overflow-x-auto shadow-md">
@@ -87,12 +95,12 @@ const TabelDataObat: React.FC<DataObatProps> = ({
             </tr>
           </thead>
           <tbody>
-            {dataObat.map((item, index) => (
+            {currentData.map((item, index) => (
               <tr
-                key={index}
+                key={startIndex + index}
                 className="text-xs text-center bg-white border-b hover:bg-gray-50"
               >
-                <td className="py-3 border-r">{index + 1}</td>
+                <td className="py-3 border-r">{startIndex + index + 1}</td>
                 <td className="py-3 border-r">{item.kode_obat}</td>
                 <td className="py-3 border-r">{item.nama_obat}</td>
                 <td className="py-3 border-r">{item.harga_obat}</td>
@@ -135,6 +143,13 @@ const TabelDataObat: React.FC<DataObatProps> = ({
           handleCancelDelete={handleCancelDelete}
         />
       )}
+
+      <Pagination
+        totalItems={dataObat.length}
+        itemsPerPage={itemsPerPage}
+        activePage={activePage}
+        onPageChange={setActivePage}
+      />
     </>
   );
 };
