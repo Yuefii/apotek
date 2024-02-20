@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
-import ModalUpdate from "../modals/data-obat/ModalUpdate";
-import ModalDelete from "../modals/data-obat/ModalDelete";
-import Pagination from "./Pagination";
+import ModalUpdate from "../../modals/data-obat/ModalUpdate";
+import ModalDelete from "../../modals/data-obat/ModalDelete";
+import Pagination from "../Pagination";
+import { formatRupiah } from "@/utils/rupiah";
 
 interface DataObat {
   kode_obat: string;
@@ -103,7 +104,7 @@ const TabelDataObat: React.FC<DataObatProps> = ({
                 <td className="py-3 border-r">{startIndex + index + 1}</td>
                 <td className="py-3 border-r">{item.kode_obat}</td>
                 <td className="py-3 border-r">{item.nama_obat}</td>
-                <td className="py-3 border-r">{item.harga_obat}</td>
+                <td className="py-3 border-r">{formatRupiah(item.harga_obat)}</td>
                 <td className="py-3 border-r">{item.satuan_obat}</td>
                 <td className="py-3 border-r">{item.stok}</td>
                 <td className="py-3 border-r">

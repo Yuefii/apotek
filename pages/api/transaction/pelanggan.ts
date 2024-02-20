@@ -75,7 +75,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (!groupedTransactions.has(key)) {
                 groupedTransactions.set(key, {
                     kode_pelanggan: transaction.kode_pelanggan,
-                    tanggal_transaksi: transaction.tanggal_transaksi,
+                    tanggal_transaksi: new Date(transaction.tanggal_transaksi).toLocaleDateString('id-ID'),
                     total_pembayaran: transaction.total_pembayaran,
                     obat: []
                 });

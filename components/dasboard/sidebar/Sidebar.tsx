@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import Link from "next/link";
 import SidebarNavigation from "./SidebarNavigation";
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 import { MdDashboardCustomize } from "react-icons/md";
 
 const Sidebar = () => {

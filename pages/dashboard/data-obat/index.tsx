@@ -1,9 +1,9 @@
 import Layout from "@/components/dasboard/Layout";
-import TabelDataObat from "@/components/dasboard/TableDataObat";
+import TabelDataObat from "@/components/dasboard/table/TableDataObat";
 import ModalTambah from "@/components/modals/data-obat/ModalTambah";
 import withAuth from "@/utils/withAuth";
 import { useEffect, useState } from "react";
-import { FaRegFolder } from "react-icons/fa";
+import { MdHomeRepairService } from "react-icons/md";
 
 const DataObat = () => {
   const [dataObat, setDataObat] = useState([]);
@@ -75,7 +75,7 @@ const DataObat = () => {
       <div className="ml-64">
         <div className="flex items-center pl-4 bg-gray-400 h-12 font-semibold text-lg">
           <div className="flex gap-2 items-center">
-            <FaRegFolder />
+            <MdHomeRepairService />
             <h1>Data Obat</h1>
           </div>
         </div>

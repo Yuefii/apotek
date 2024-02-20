@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Layout from "@/components/dasboard/Layout"
-import TabelDataPelanggan from "@/components/dasboard/TableDataPelanggan"
+import TabelDataPelanggan from "@/components/dasboard/table/TableDataPelanggan"
 import React, { useEffect, useState } from "react";
 import { FaUserFriends } from "react-icons/fa"
 

@@ -1,5 +1,5 @@
 import Layout from "@/components/dasboard/Layout";
-import TabelDataStok from "@/components/dasboard/TableDataStok";
+import TabelDataStok from "@/components/dasboard/table/TableDataStok";
 import ModalTambah from "@/components/modals/data-transaksi/ModalTambah";
 import withAuth from "@/utils/withAuth";
 import { useEffect, useState } from "react";
