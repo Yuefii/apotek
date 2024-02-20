@@ -1,15 +1,25 @@
 import Layout from "@/components/dasboard/Layout";
 import TabelDataStok from "@/components/dasboard/TableDataStok";
+import ModalTambah from "@/components/modals/data-transaksi/ModalTambah";
 import withAuth from "@/utils/withAuth";
 import { useEffect, useState } from "react";
 import { MdHomeRepairService } from "react-icons/md";
 
 const Stok = () => {
   const [stok, setStok] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleTambahOpen = () => {
+    setShowModal(true);
+  };
+
+  const handleTambahClose = () => {
+    setShowModal(false);
+  };
 
   const fetchData = async () => {
     try {
@@ -37,7 +47,10 @@ const Stok = () => {
           </div>
           <div className="mx-10 mt-5">
             <div className="flex justify-end items-center">
-              <button className="bg-blue-600 text-white font-semibold px-2 py-1 text-xs rounded mb-2">
+              <button
+                onClick={handleTambahOpen}
+                className="bg-blue-600 text-white font-semibold px-2 py-1 text-xs rounded mb-2"
+              >
                 Tambah
               </button>
             </div>
@@ -46,6 +59,12 @@ const Stok = () => {
             </div>
           </div>
         </div>
+        {showModal && (
+          <ModalTambah
+            fetchData={fetchData}
+            handleTambahClose={handleTambahClose}
+          />
+        )}
       </Layout>
     </>
   );

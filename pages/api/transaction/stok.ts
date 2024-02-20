@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 obat: {
                     connect: { kode_obat },
                 },
-                jumlah_tambah,
+                jumlah_tambah: parseInt(jumlah_tambah),
                 tanggal_tambah: parsedDate,
             },
         });
@@ -33,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             where: { kode_obat },
             data: {
                 stok: {
-                    increment: jumlah_tambah,
+                    increment: parseInt(jumlah_tambah),
                 },
             },
         });
@@ -69,25 +69,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
         }
 
-        const obat = await prisma.obat.findUnique({
-            where: { kode_obat: kode_obat },
-        });
+        if (kode_obat) {
+            const obat = await prisma.obat.findUnique({
+                where: { kode_obat: kode_obat },
+            });
 
-        const transaksiObatByKodeObat = await prisma.transaksi_obat.findMany({
-            where: { kode_obat: kode_obat },
-        });
+            const transaksiObatByKodeObat = await prisma.transaksi_obat.findMany({
+                where: { kode_obat: kode_obat },
+            });
 
-        const response = {
-            kode_obat: obat?.kode_obat,
-            nama_obat: obat?.nama_obat,
-            data: transaksiObatByKodeObat.map(transaksi => ({
-                kode_transaksi: transaksi.kode_transaksi,
-                jumlah_tambah: transaksi.jumlah_tambah,
-                tanggal_tambah: new Date(transaksi.tanggal_tambah).toLocaleDateString('id-ID'),
-            }))
-        };
+            const response = {
+                kode_obat: obat?.kode_obat,
+                nama_obat: obat?.nama_obat,
+                data: transaksiObatByKodeObat.map(transaksi => ({
+                    kode_transaksi: transaksi.kode_transaksi,
+                    jumlah_tambah: transaksi.jumlah_tambah,
+                    tanggal_tambah: new Date(transaksi.tanggal_tambah).toLocaleDateString('id-ID'),
+                }))
+            };
 
-        res.json(response);
+            res.json(response);
+        }
     } else {
         res.status(405).json(`Method Not Allowed`);
     }

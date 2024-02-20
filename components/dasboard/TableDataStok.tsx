@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Pagination from "./Pagination";
 
 const TabelDataStok = ({ stok }: any) => {
   const [activePage, setActivePage] = useState<number>(1);
@@ -42,6 +43,12 @@ const TabelDataStok = ({ stok }: any) => {
           </tbody>
         </table>
       </div>
+      <Pagination
+        totalItems={stok.length}
+        itemsPerPage={itemsPerPage}
+        activePage={activePage}
+        onPageChange={setActivePage}
+      />
     </>
   );
 };
