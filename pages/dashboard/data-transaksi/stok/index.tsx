@@ -1,9 +1,30 @@
 import Layout from "@/components/dasboard/Layout";
 import TabelDataStok from "@/components/dasboard/TableDataStok";
 import withAuth from "@/utils/withAuth";
+import { useEffect, useState } from "react";
 import { MdHomeRepairService } from "react-icons/md";
 
 const Stok = () => {
+  const [stok, setStok] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch("/api/transaction/stok");
+      if (!res.ok) {
+        throw new Error("Gagal mengambil data obat");
+      }
+      const result = await res.json();
+      setStok(result.data);
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+      setStok([]);
+    }
+  };
+
   return (
     <>
       <Layout>
@@ -21,7 +42,7 @@ const Stok = () => {
               </button>
             </div>
             <div className="container mx-auto">
-              <TabelDataStok />
+              <TabelDataStok stok={stok} />
             </div>
           </div>
         </div>

@@ -59,7 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 kode_transaksi: transaksiObat.kode_transaksi,
                 kode_obat: transaksiObat.kode_obat,
                 jumlah_tambah: transaksiObat.jumlah_tambah,
-                tanggal_tambah: transaksiObat.tanggal_tambah,
+                tanggal_tambah: new Date(transaksiObat.tanggal_tambah).toLocaleDateString('id-ID'),
                 nama_obat: transaksiObat.obat.nama_obat,
                 satuan_obat: transaksiObat.obat.satuan_obat
             }));
@@ -83,7 +83,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             data: transaksiObatByKodeObat.map(transaksi => ({
                 kode_transaksi: transaksi.kode_transaksi,
                 jumlah_tambah: transaksi.jumlah_tambah,
-                tanggal_tambah: transaksi.tanggal_tambah,
+                tanggal_tambah: new Date(transaksi.tanggal_tambah).toLocaleDateString('id-ID'),
             }))
         };
 

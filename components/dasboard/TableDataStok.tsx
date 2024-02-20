@@ -1,4 +1,14 @@
-const TabelDataStok = () => {
+import { useState } from "react";
+
+const TabelDataStok = ({ stok }: any) => {
+  const [activePage, setActivePage] = useState<number>(1);
+  const itemsPerPage = 10;
+
+  const startIndex = (activePage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const currentData = stok.slice(startIndex, endIndex);
+
   return (
     <>
       <div className="relative overflow-x-auto shadow-md">
@@ -15,15 +25,20 @@ const TabelDataStok = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="text-xs text-center bg-white border-b hover:bg-gray-50">
-              <td className="py-3 border-r">No</td>
-              <td className="py-3 border-r">Kode Transaksi</td>
-              <td className="py-3 border-r">Tanggal Transaksi</td>
-              <td className="py-3 border-r">Kode Obat</td>
-              <td className="py-3 border-r">Nama Obat</td>
-              <td className="py-3 border-r">Jumlah</td>
-              <td className="py-3 border-r">Satuan</td>
-            </tr>
+            {currentData.map((item: any, index: any) => (
+              <tr
+                key={startIndex + index}
+                className="text-xs text-center bg-white border-b hover:bg-gray-50"
+              >
+                <td className="py-3 border-r">{startIndex + index}</td>
+                <td className="py-3 border-r">{item.kode_transaksi}</td>
+                <td className="py-3 border-r">{item.tanggal_tambah}</td>
+                <td className="py-3 border-r">{item.kode_obat}</td>
+                <td className="py-3 border-r">{item.nama_obat}</td>
+                <td className="py-3 border-r">{item.jumlah_tambah}</td>
+                <td className="py-3 border-r">{item.satuan_obat}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
