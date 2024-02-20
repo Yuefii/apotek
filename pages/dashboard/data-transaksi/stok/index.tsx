@@ -1,17 +1,17 @@
 import Layout from "@/components/dasboard/Layout";
-import TabelDataTransaksi from "@/components/dasboard/TableDataTransaksi";
+import TabelDataStok from "@/components/dasboard/TableDataStok";
 import withAuth from "@/utils/withAuth";
-import { GrTransaction } from "react-icons/gr";
+import { MdHomeRepairService } from "react-icons/md";
 
-const DataTransaksi = () => {
+const Stok = () => {
   return (
     <>
       <Layout>
         <div className="ml-64">
           <div className="flex items-center pl-4 bg-gray-400 h-12 font-semibold text-lg">
             <div className="flex gap-2 items-center">
-              <GrTransaction />
-              <h1 className="font-semibold">Data Transaksi</h1>
+              <MdHomeRepairService />
+              <h1 className="font-semibold">Stok Obat</h1>
             </div>
           </div>
           <div className="mx-10 mt-5">
@@ -21,7 +21,7 @@ const DataTransaksi = () => {
               </button>
             </div>
             <div className="container mx-auto">
-              <TabelDataTransaksi />
+              <TabelDataStok />
             </div>
           </div>
         </div>
@@ -30,4 +30,4 @@ const DataTransaksi = () => {
   );
 };
 
-export default withAuth(DataTransaksi);
+export default withAuth(Stok);

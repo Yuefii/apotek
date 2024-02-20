@@ -1,6 +1,4 @@
-import { MdDelete, MdEdit } from "react-icons/md";
-
-const TabelDataTransaksi = () => {
+const TabelDataStok = () => {
   return (
     <>
       <div className="relative overflow-x-auto shadow-md">
@@ -33,4 +31,4 @@ const TabelDataTransaksi = () => {
   );
 };
 
-export default TabelDataTransaksi;
+export default TabelDataStok;
