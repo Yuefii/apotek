@@ -11,12 +11,13 @@ datasource db {
 }
 
 model Obat {
-  kode_obat      String           @id @unique
-  nama_obat      String
-  harga_obat     Int
-  satuan_obat    String
-  stok           Int              @default(0)
-  transaksi_obat Transaksi_obat[]
+  kode_obat           String                @id @unique
+  nama_obat           String
+  harga_obat          Int
+  satuan_obat         String
+  stok                Int                   @default(0)
+  transaksi_obat      Transaksi_obat[]
+  transaksi_pelanggan Transaksi_pelanggan[]
 }
 
 model Transaksi_obat {
@@ -25,6 +26,15 @@ model Transaksi_obat {
   jumlah_tambah  Int
   tanggal_tambah DateTime
   obat           Obat     @relation(fields: [kode_obat], references: [kode_obat])
+}
+
+model Transaksi_pelanggan {
+  id                Int      @id @default(autoincrement())
+  kode_pelanggan    String
+  tanggal_transaksi DateTime
+  total_pembayaran  Int
+  jumlah            Int
+  obat              Obat[]
 }
 
 model User {
