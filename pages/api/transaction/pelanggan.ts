@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const lastId = parseInt(lastTransaction.kode_pelanggan.substring(5)) || 0;
             kode_pelanggan = 'TRPLG' + (lastId + 1).toString().padStart(5, '0');
         } else {
-            kode_pelanggan = 'TRPLG00001'; // Jika tidak ada transaksi_pelanggan sebelumnya
+            kode_pelanggan = 'TRPLG00001';
         }
 
         const newTransactions = await Promise.all(transaksi.map(async (item) => {
@@ -54,6 +54,43 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }));
 
         res.status(201).json({ message: 'Transaction successful', transactions: newTransactions });
+
+    } else if (req.method === 'GET') {
+        const transactions = await prisma.transaksi_pelanggan.findMany({
+            orderBy: { tanggal_transaksi: 'desc' },
+            include: {
+                obat: {
+                    select: {
+                        kode_obat: true,
+                        nama_obat: true,
+                        transaksi_pelanggan: { select: { jumlah: true } }
+                    }
+                }
+            }
+        });
+
+        const groupedTransactions = new Map();
+        transactions.forEach(transaction => {
+            const key = `${transaction.kode_pelanggan}-${transaction.tanggal_transaksi.toISOString()}`;
+            if (!groupedTransactions.has(key)) {
+                groupedTransactions.set(key, {
+                    kode_pelanggan: transaction.kode_pelanggan,
+                    tanggal_transaksi: transaction.tanggal_transaksi,
+                    total_pembayaran: transaction.total_pembayaran,
+                    obat: []
+                });
+            }
+            transaction.obat.forEach(obat => {
+                groupedTransactions.get(key).obat.push({
+                    kode_obat: obat.kode_obat,
+                    nama_obat: obat.nama_obat,
+                });
+            });
+        });
+
+        const responseData = Array.from(groupedTransactions.values());
+
+        res.status(200).json({ data: responseData });
     } else {
         res.status(405).json({ message: 'Method Not Allowed' });
     }
