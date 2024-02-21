@@ -3,8 +3,8 @@ import { ChangeEvent } from "react";
 interface InputProps {
   label?: string;
   name?: string;
-  value: string | number;
-  type: string;
+  value?: string | number;
+  type?: string;
   placeholder?: string;
   defaultValue?: string;
   disabled?: boolean;

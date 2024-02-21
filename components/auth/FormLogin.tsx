@@ -39,7 +39,6 @@ const FormLogin = () => {
       <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
         <Input
           value={username}
-          defaultValue=""
           label="Username"
           name="text"
           type="text"

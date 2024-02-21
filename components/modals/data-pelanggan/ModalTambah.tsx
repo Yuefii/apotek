@@ -3,10 +3,22 @@ import Button from "@/components/ui/Button";
 import Modal from "../../ui/Modal";
 import { useEffect, useState } from "react";
 
+interface Obat {
+  kode_obat: string;
+  stok: number;
+  nama_obat: string;
+}
+
 const ModalTambah = ({ fetchData, handleTambahClose }: any) => {
   const [obat, setObat] = useState([]);
+  const [stockUnavailableMsg, setStockUnavailableMsg] = useState("");
   const [formData, setFormData] = useState({
-    transaksi: [{ kode_obat: "", jumlah: 0 }],
+    transaksi: [
+      {
+        kode_obat: "",
+        jumlah: 0,
+      },
+    ],
     tanggal_transaksi: "",
     total_pembayaran: 0,
   });
@@ -31,6 +43,34 @@ const ModalTambah = ({ fetchData, handleTambahClose }: any) => {
 
   const handleTambah = async () => {
     try {
+      const isStockAvailable = formData.transaksi.every((transaksi) => {
+        const selectedObat: any = obat.find(
+          (item: Obat) => item.kode_obat === transaksi.kode_obat
+        );
+        return selectedObat && selectedObat.stok > 0;
+      });
+
+      if (!isStockAvailable) {
+        const outOfStockItems = formData.transaksi.filter((transaksi) => {
+          const selectedObat: any = obat.find(
+            (item: Obat) => item.kode_obat === transaksi.kode_obat
+          );
+          return selectedObat && selectedObat.stok <= 0;
+        });
+
+        const outOfStockNames = outOfStockItems.map((transaksi) => {
+          const selectedObat: any = obat.find(
+            (item: Obat) => item.kode_obat === transaksi.kode_obat
+          );
+          return selectedObat?.nama_obat;
+        });
+
+        setStockUnavailableMsg(
+          `Stok ${outOfStockNames.join(", ")} telah habis`
+        );
+        return;
+      }
+
       const res = await fetch(`/api/transaction/pelanggan`, {
         method: "POST",
         headers: {
@@ -65,22 +105,22 @@ const ModalTambah = ({ fetchData, handleTambahClose }: any) => {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
-  
+
     // Menggunakan spread operator untuk membuat salinan array
     const updatedTransaksi = [...formData.transaksi];
-  
+
     // Mengakses objek di dalam array dan mengatur nilai properti sesuai dengan name yang diterima
     updatedTransaksi[index] = {
       ...updatedTransaksi[index],
-      [name]: value
+      [name]: value,
     };
-  
+
     // Memperbarui state formData dengan data yang diperbarui
     setFormData((prevData) => ({
       ...prevData,
-      transaksi: updatedTransaksi
+      transaksi: updatedTransaksi,
     }));
-  
+
     // Menampilkan data yang diperbarui ke konsol
     console.log("Data saat mengubah input:", formData);
   };
@@ -114,17 +154,25 @@ const ModalTambah = ({ fetchData, handleTambahClose }: any) => {
               onChange={handleChange}
               name="total_pembayaran"
             />
-
+            {stockUnavailableMsg && (
+              <p className="mt-2 text-red-600 text-xs">{stockUnavailableMsg}</p>
+            )}
             <div className="flex justify-center gap-3 mt-4">
-              <Button className="text-xs" onClick={handleTambah}>Tambah</Button>
-              <Button className="text-xs" onClick={handleTambahClose}>Batal</Button>
+              <Button className="text-xs" onClick={handleTambah}>
+                Tambah
+              </Button>
+              <Button className="text-xs" onClick={handleTambahClose}>
+                Batal
+              </Button>
             </div>
           </div>
 
           <div>
             {formData.transaksi.map((transaksi, index) => (
               <div key={index}>
-                <label className="text-xs" htmlFor="obat">Pilih Obat {index + 1}</label>
+                <label className="text-xs" htmlFor="obat">
+                  Pilih Obat {index + 1}
+                </label>
                 <select
                   name="kode_obat"
                   value={transaksi.kode_obat}
@@ -147,7 +195,12 @@ const ModalTambah = ({ fetchData, handleTambahClose }: any) => {
               </div>
             ))}
             {formData.transaksi.length <= 2 && (
-              <Button className="mt-3 w-full text-xs" onClick={handleAddTransaksi}>Tambah Transaksi</Button>
+              <Button
+                className="mt-3 w-full text-xs"
+                onClick={handleAddTransaksi}
+              >
+                Tambah Transaksi
+              </Button>
             )}
           </div>
         </div>
