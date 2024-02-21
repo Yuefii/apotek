@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const newTransaction = await prisma.transaksi_pelanggan.create({
                 data: {
                     kode_pelanggan,
-                    jumlah: itemJumlah,
+                    jumlah: parseInt(itemJumlah),
                     tanggal_transaksi: parsedDate,
                     total_pembayaran: parseInt(total_pembayaran),
                     obat: {
@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 where: { kode_obat },
                 data: {
                     stok: {
-                        decrement: itemJumlah
+                        decrement: parseInt(itemJumlah)
                     }
                 }
             });
@@ -57,7 +57,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     } else if (req.method === 'GET') {
         const transactions = await prisma.transaksi_pelanggan.findMany({
-            orderBy: { tanggal_transaksi: 'desc' },
             include: {
                 obat: {
                     select: {

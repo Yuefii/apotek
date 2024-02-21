@@ -1,15 +1,25 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Layout from "@/components/dasboard/Layout"
-import TabelDataPelanggan from "@/components/dasboard/table/TableDataPelanggan"
+import Layout from "@/components/dasboard/Layout";
+import TabelDataPelanggan from "@/components/dasboard/table/TableDataPelanggan";
+import ModalTambah from "@/components/modals/data-pelanggan/ModalTambah";
 import React, { useEffect, useState } from "react";
-import { FaUserFriends } from "react-icons/fa"
+import { FaUserFriends } from "react-icons/fa";
 
 const pelanggan = () => {
   const [pelanggan, setPelanggan] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleTambahOpen = () => {
+    setShowModal(true);
+  };
+
+  const handleTambahClose = () => {
+    setShowModal(false);
+  };
 
   const fetchData = async () => {
     try {
@@ -37,7 +47,7 @@ const pelanggan = () => {
           <div className="mx-10 mt-5">
             <div className="flex justify-end items-center">
               <button
-                onClick={()=> {}}
+                onClick={handleTambahOpen}
                 className="bg-blue-600 text-white font-semibold px-2 py-1 text-xs rounded mb-2"
               >
                 Tambah
@@ -48,9 +58,15 @@ const pelanggan = () => {
             </div>
           </div>
         </div>
+        {showModal && (
+          <ModalTambah
+            fetchData={fetchData}
+            handleTambahClose={handleTambahClose}
+          />
+        )}
       </Layout>
     </>
-  )
-}
+  );
+};
 
-export default pelanggan
+export default pelanggan;
