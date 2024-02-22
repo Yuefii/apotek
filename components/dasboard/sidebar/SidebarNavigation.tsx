@@ -19,17 +19,19 @@ const SidebarNavigation = ({ isLinkActive }: any) => {
 
   return (
     <>
-      <ul>
+      <ul className="mt-5">
         {SidebarList.map((item, index) => (
           <li key={index} className="mb-1">
             {item.subMenu ? (
               <div>
                 <div
                   onClick={toggleDropdown}
-                  className="w-full flex gap-3 items-center py-2 px-4 font-semibold hover:bg-slate-600 hover:text-white cursor-pointer"
+                  className="w-full flex gap-3 items-center py-2 px-4 hover:bg-teal-400 hover:text-white cursor-pointer"
                 >
-                  {item.icon && <item.icon className="text-black" />}
-                  <span className="text-sm">{item.title}</span>
+                  {item.icon && (
+                    <item.icon size={15} className="text-teal-900" />
+                  )}
+                  <span className="text-sm text-teal-900">{item.title}</span>
                 </div>
                 {isOpen && (
                   <ul className="pl-4">
@@ -39,12 +41,17 @@ const SidebarNavigation = ({ isLinkActive }: any) => {
                           href={subItem.link}
                           className={`${isLinkActive(
                             `${subItem.link}`
-                          )}w-full flex gap-3 items-center py-2 px-4 font-semibold hover:bg-slate-600 hover:text-white`}
+                          )}w-full flex gap-3 items-center py-2 px-4 hover:bg-teal-400`}
                         >
                           {subItem.icon && (
-                            <subItem.icon className="text-black ml-3" />
+                            <subItem.icon
+                              size={15}
+                              className="text-teal-900 ml-3"
+                            />
                           )}
-                          <span className="text-xs">{subItem.title}</span>
+                          <span className="text-xs text-teal-900">
+                            {subItem.title}
+                          </span>
                         </Link>
                       </li>
                     ))}
@@ -56,20 +63,20 @@ const SidebarNavigation = ({ isLinkActive }: any) => {
                 href={item.link}
                 className={`${isLinkActive(
                   `${item.link}`
-                )}w-full flex gap-3 items-center py-2 px-4 font-semibold hover:bg-slate-600 hover:text-white`}
+                )}w-full flex gap-3 items-center py-2 px-4 hover:bg-teal-400 hover:text-white`}
               >
-                {item.icon && <item.icon className="text-black" />}
-                <span className="text-sm">{item.title}</span>
+                {item.icon && <item.icon size={15} className="text-teal-900" />}
+                <span className="text-sm text-teal-900">{item.title}</span>
               </Link>
             )}
           </li>
         ))}
         <li
           onClick={logout}
-          className="w-full flex gap-3 items-center py-2 px-4 font-semibold hover:bg-slate-600 hover:text-white"
+          className="w-full flex gap-3 items-center py-2 px-4 hover:bg-teal-400 hover:text-white"
         >
-          <MdLogout />
-          <span className="text-sm">Keluar</span>
+          <MdLogout size={15} className="text-teal-900" />
+          <span className="text-sm text-teal-900">Keluar</span>
         </li>
       </ul>
     </>

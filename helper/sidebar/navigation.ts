@@ -1,8 +1,15 @@
+import { BiSolidReport } from "react-icons/bi";
 import { FaUserFriends } from "react-icons/fa";
 import { GrTransaction } from "react-icons/gr";
-import { MdHomeRepairService, MdOutlineReport } from "react-icons/md";
+import { IoMdHome } from "react-icons/io";
+import { MdHomeRepairService } from "react-icons/md";
 
 export const SidebarList = [
+  {
+    title: "Dashboard",
+    link: "/dashboard",
+    icon: IoMdHome,
+  },
   {
     title: "Data Obat",
     link: "/dashboard/data-obat",
@@ -28,6 +35,6 @@ export const SidebarList = [
   {
     title: "Laporan",
     link: "/dashboard/laporan",
-    icon: MdOutlineReport
+    icon: BiSolidReport
   },
 ];
