@@ -1,9 +1,9 @@
+import Header from "@/components/dasboard/Header";
 import Layout from "@/components/dasboard/Layout";
 import TabelDataObat from "@/components/dasboard/table/TableDataObat";
 import ModalTambah from "@/components/modals/data-obat/ModalTambah";
 import withAuth from "@/utils/withAuth";
 import { useEffect, useState } from "react";
-import { MdHomeRepairService } from "react-icons/md";
 
 const DataObat = () => {
   const [dataObat, setDataObat] = useState([]);
@@ -73,16 +73,11 @@ const DataObat = () => {
   return (
     <Layout>
       <div className="ml-64">
-        <div className="flex items-center pl-4 bg-gray-400 h-12 font-semibold text-lg">
-          <div className="flex gap-2 items-center">
-            <MdHomeRepairService />
-            <h1>Data Obat</h1>
-          </div>
-        </div>
-        <div className="mx-10 mt-5">
+        <Header title="Data Obat" />
+        <div className="mx-10">
           <div className="flex justify-end items-center">
             <button
-              className="bg-blue-600 hover:opacity-90 text-white font-semibold px-2 py-1 text-xs rounded mb-2"
+              className="bg-teal-400 hover:opacity-90 text-white font-semibold px-2 py-1 text-xs rounded mb-2"
               onClick={handleTambahOpen}
             >
               Tambah

@@ -2,9 +2,8 @@ import Layout from "@/components/dasboard/Layout";
 import withAuth from "@/utils/withAuth";
 import { formatRupiah } from "@/utils/rupiah";
 import { useEffect, useState } from "react";
-import { MdHomeRepairService } from "react-icons/md";
-import { IoMdMenu } from "react-icons/io";
 import CardData from "@/components/dasboard/card/CardData";
+import Header from "@/components/dasboard/Header";
 
 const DashboardPages = () => {
   const [totalObat, setTotalObat] = useState(0);
@@ -71,17 +70,7 @@ const DashboardPages = () => {
     <>
       <Layout>
         <div className="ml-64">
-          <div className="flex items-center pl-4 bg-teal-300 shadow-2xl h-12 font-semibold text-lg">
-            <div className="flex gap-2 items-center">
-              <IoMdMenu />
-            </div>
-          </div>
-          <div className="py-10 pl-10">
-            <h1 className="text-3xl text-teal-900">Dashboard</h1>
-            <p className="text-sm text-teal-600">
-              Selamat Datang, Semangat Kerjanya.
-            </p>
-          </div>
+          <Header title="Dashboard" />
           <div className="grid grid-cols-12 items-center gap-5 pl-10">
             <CardData
               formattedPrice={formattedPrice}
@@ -96,4 +85,4 @@ const DashboardPages = () => {
   );
 };
 
-export default withAuth(DashboardPages);  
+export default withAuth(DashboardPages);

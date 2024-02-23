@@ -84,7 +84,7 @@ const TabelDataObat: React.FC<DataObatProps> = ({
     <>
       <div className="relative overflow-x-auto shadow-md">
         <table className="w-full text-sm table-auto">
-          <thead className="text-xs text-white uppercase bg-gray-400">
+          <thead className="text-xs text-white uppercase bg-teal-400">
             <tr className="text-center">
               <th className="py-3 border-r">No</th>
               <th className="py-3 border-r">Kode Obat</th>
@@ -99,7 +99,7 @@ const TabelDataObat: React.FC<DataObatProps> = ({
             {currentData.map((item, index) => (
               <tr
                 key={startIndex + index}
-                className="text-xs text-center bg-white border-b hover:bg-gray-50"
+                className="text-xs text-center text-teal-900 bg-white border-b hover:bg-gray-50"
               >
                 <td className="py-3 border-r">{startIndex + index + 1}</td>
                 <td className="py-3 border-r">{item.kode_obat}</td>
@@ -110,7 +110,7 @@ const TabelDataObat: React.FC<DataObatProps> = ({
                 <td className="py-3 border-r">
                   <div className="flex items-center justify-center gap-2">
                     <span
-                      className="bg-blue-600 p-1.5 rounded text-white cursor-pointer hover:opacity-90"
+                      className="bg-teal-400 p-1.5 rounded text-white cursor-pointer hover:opacity-90"
                       onClick={() => handleEditClick(item)}
                     >
                       <MdEdit size={15} />
