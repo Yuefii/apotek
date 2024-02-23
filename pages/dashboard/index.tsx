@@ -3,6 +3,8 @@ import withAuth from "@/utils/withAuth";
 import { formatRupiah } from "@/utils/rupiah";
 import { useEffect, useState } from "react";
 import { MdHomeRepairService } from "react-icons/md";
+import { IoMdMenu } from "react-icons/io";
+import CardData from "@/components/dasboard/card/CardData";
 
 const DashboardPages = () => {
   const [totalObat, setTotalObat] = useState(0);
@@ -51,12 +53,12 @@ const DashboardPages = () => {
     try {
       const response = await fetch("/api/transaction/pelanggan");
       const data = await response.json();
-      
+
       let total = 0;
-      data.data.forEach((transaksi: { total_pembayaran: number; }) => {
+      data.data.forEach((transaksi: { total_pembayaran: number }) => {
         total += transaksi.total_pembayaran;
       });
-  
+
       setTotalPembayaran(total);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -69,57 +71,24 @@ const DashboardPages = () => {
     <>
       <Layout>
         <div className="ml-64">
-          <div className="flex items-center pl-4 bg-gray-400 h-12 font-semibold text-lg">
+          <div className="flex items-center pl-4 bg-teal-300 shadow-2xl h-12 font-semibold text-lg">
             <div className="flex gap-2 items-center">
-              <MdHomeRepairService />
-              <h1>Aplikasi Apotek</h1>
+              <IoMdMenu />
             </div>
           </div>
-          <div className="flex justify-center items-center gap-5 my-20">
-            <div className="bg-teal-600 rounded shadow-2xl w-[250px] h-[150px]">
-              <div className="flex justify-center mt-5">
-                <MdHomeRepairService size="50" className="text-white" />
-              </div>
-              <h1 className="text-xl text-gray-200 text-center font-semibold">
-                Jumlah Obat
-              </h1>
-              <p className="text-xl text-gray-200 text-center font-semibold">
-                {totalObat}
-              </p>
-            </div>
-            <div className="bg-blue-600 rounded shadow-2xl  w-[250px] h-[150px]">
-              <div className="flex justify-center mt-5">
-                <MdHomeRepairService size="50" className="text-white" />
-              </div>
-              <h1 className="text-xl text-gray-200 text-center font-semibold">
-                Jumlah Stock
-              </h1>
-              <p className="text-xl text-gray-200 text-center font-semibold">
-                {totalStok}
-              </p>
-            </div>
-            <div className="bg-red-600 rounded shadow-2xl  w-[250px] h-[150px]">
-              <div className="flex justify-center mt-5">
-                <MdHomeRepairService size="50" className="text-white" />
-              </div>
-              <h1 className="text-xl text-gray-200 text-center font-semibold">
-                Obat Terjual
-              </h1>
-              <p className="text-xl text-gray-200 text-center font-semibold">
-                {totalPelanggan}
-              </p>
-            </div>
-            <div className="bg-slate-600 rounded shadow-2xl  w-[250px] h-[150px]">
-              <div className="flex justify-center mt-5">
-                <MdHomeRepairService size="50" className="text-white" />
-              </div>
-              <h1 className="text-xl text-gray-200 text-center font-semibold">
-                Total Penghasilan
-              </h1>
-              <p className="text-xl text-gray-200 text-center font-semibold">
-                {formattedPrice}
-              </p>
-            </div>
+          <div className="py-10 pl-10">
+            <h1 className="text-3xl text-teal-900">Dashboard</h1>
+            <p className="text-sm text-teal-600">
+              Selamat Datang, Semangat Kerjanya.
+            </p>
+          </div>
+          <div className="grid grid-cols-12 items-center gap-5 pl-10">
+            <CardData
+              formattedPrice={formattedPrice}
+              totalObat={totalObat}
+              totalStok={totalStok}
+              totalPelanggan={totalPelanggan}
+            />
           </div>
         </div>
       </Layout>
@@ -127,4 +96,4 @@ const DashboardPages = () => {
   );
 };
 
-export default withAuth(DashboardPages);
+export default withAuth(DashboardPages);  
