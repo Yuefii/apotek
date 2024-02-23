@@ -1,3 +1,4 @@
+import ButtonTambah from "@/components/dasboard/ButtonTambah";
 import Header from "@/components/dasboard/Header";
 import Layout from "@/components/dasboard/Layout";
 import TabelDataObat from "@/components/dasboard/table/TableDataObat";
@@ -75,14 +76,7 @@ const DataObat = () => {
       <div className="ml-64">
         <Header title="Data Obat" />
         <div className="mx-10">
-          <div className="flex justify-end items-center">
-            <button
-              className="bg-teal-400 hover:opacity-90 text-white font-semibold px-2 py-1 text-xs rounded mb-2"
-              onClick={handleTambahOpen}
-            >
-              Tambah
-            </button>
-          </div>
+          <ButtonTambah onClick={handleTambahOpen} />
           <div className="container mx-auto">
             <TabelDataObat
               dataObat={dataObat}

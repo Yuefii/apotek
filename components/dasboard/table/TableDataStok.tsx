@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Pagination from "../Pagination";
+import HeadDataStok from "./head/HeadDataStok";
 
 const TabelDataStok = ({ stok }: any) => {
   const [activePage, setActivePage] = useState<number>(1);
@@ -14,17 +15,7 @@ const TabelDataStok = ({ stok }: any) => {
     <>
       <div className="relative overflow-x-auto shadow-md">
         <table className="w-full text-sm table-auto">
-          <thead className="text-xs text-white uppercase bg-teal-400">
-            <tr className="text-center">
-              <th className="py-3 border-r">No</th>
-              <th className="py-3 border-r">Kode Transaksi</th>
-              <th className="py-3 border-r">Tanggal Transaksi</th>
-              <th className="py-3 border-r">Kode Obat</th>
-              <th className="py-3 border-r">Nama Obat</th>
-              <th className="py-3 border-r">Jumlah</th>
-              <th className="py-3 border-r">Satuan</th>
-            </tr>
-          </thead>
+          <HeadDataStok />
           <tbody>
             {currentData.map((item: any, index: any) => (
               <tr
