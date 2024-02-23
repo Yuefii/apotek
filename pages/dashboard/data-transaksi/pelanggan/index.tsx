@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import Header from "@/components/dasboard/Header";
 import Layout from "@/components/dasboard/Layout";
 import TabelDataPelanggan from "@/components/dasboard/table/TableDataPelanggan";
 import ModalTambah from "@/components/modals/data-pelanggan/ModalTambah";
@@ -38,17 +39,12 @@ const pelanggan = () => {
     <>
       <Layout>
         <div className="ml-64">
-          <div className="flex items-center pl-4 bg-gray-400 h-12 font-semibold text-lg">
-            <div className="flex gap-2 items-center">
-              <FaUserFriends />
-              <h1 className="font-semibold">Pelanggan</h1>
-            </div>
-          </div>
-          <div className="mx-10 mt-5">
+          <Header title="Data Pelanggan" />
+          <div className="mx-10">
             <div className="flex justify-end items-center">
               <button
                 onClick={handleTambahOpen}
-                className="bg-blue-600 text-white font-semibold px-2 py-1 text-xs rounded mb-2"
+                className="bg-teal-400 text-white font-semibold px-2 py-1 text-xs rounded mb-2"
               >
                 Tambah
               </button>
